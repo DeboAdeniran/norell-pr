@@ -396,7 +396,7 @@ export default function Work() {
 
   return (
     <>
-      <div className="bg-cream border border-dark/8 rounded-[20px] p-1.5 grid grid-cols-4 gap-1 max-md:grid-cols-2">
+      <div className="mt-21.5 max-md:mt-18.5 bg-cream border border-dark/8 rounded-[20px] p-1.5 grid grid-cols-4 gap-1 max-md:grid-cols-2">
         {tabs.map(t => (
           <button
             key={t.id}

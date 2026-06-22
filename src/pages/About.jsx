@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const whatHowWhy = [
@@ -78,9 +77,6 @@ const promises = [
 ]
 
 export default function About() {
-  const [servicesBg, setServicesBg] = useState('cream')
-  const isDark = servicesBg === 'dark'
-
   return (
     <>
       {/* ── SECTION 1: HERO ─────────────────────────────────── */}
@@ -108,7 +104,7 @@ export default function About() {
           </div>
           <div
             className="font-syne font-extrabold leading-[0.88] uppercase tracking-[-0.03em] text-dark"
-            style={{ fontSize: 'clamp(44px, 11vw, 160px)' }}
+            style={{ fontSize: 'clamp(22px, 4vw, 64px)' }}
           >
             About
           </div>
@@ -189,33 +185,17 @@ export default function About() {
         </div>
       </div>
 
-      {/* ── SECTION 5: SERVICES ──────────────────────────────── */}
-      <div className={`section rounded-[20px] py-[clamp(48px,6vh,80px)] px-[clamp(28px,4vw,56px)] transition-colors duration-300 ${isDark ? 'bg-dark' : 'bg-cream border border-dark/8'}`}>
-        <div className="flex items-center justify-between mb-10 max-md:flex-col max-md:items-start max-md:gap-4">
+      {/* ── SECTION 5: SERVICES — dark ───────────────────────── */}
+      <div className="section bg-dark rounded-[20px] py-[clamp(48px,6vh,80px)] px-[clamp(28px,4vw,56px)]">
+        <div className="flex items-center justify-between mb-10 max-md:flex-col max-md:items-start max-md:gap-3">
           <div>
-            <div className={`text-[10px] font-semibold tracking-[0.16em] uppercase mb-3 transition-colors duration-300 ${isDark ? 'text-cream/30' : 'text-dark/30'}`}>What we offer</div>
-            <div className={`font-syne text-[clamp(22px,3vw,42px)] font-extrabold uppercase tracking-[-0.02em] transition-colors duration-300 ${isDark ? 'text-cream' : 'text-dark'}`}>
+            <div className="text-[10px] font-semibold tracking-[0.16em] uppercase text-cream/30 mb-3">What we offer</div>
+            <div className="font-syne text-[clamp(22px,3vw,42px)] font-extrabold text-cream uppercase tracking-[-0.02em]">
               Our Services
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <div className={`text-[11px] tracking-[0.06em] uppercase border-b pb-0.5 transition-colors duration-300 max-md:hidden ${isDark ? 'text-cream/35 border-cream/20' : 'text-dark/35 border-dark/20'}`}>
-              8 Core Services
-            </div>
-            <div className={`flex gap-px p-0.5 rounded-full border transition-colors duration-300 ${isDark ? 'border-cream/15' : 'border-dark/15'}`}>
-              <button
-                onClick={() => setServicesBg('cream')}
-                className={`text-[10px] font-semibold tracking-[0.08em] uppercase px-3 py-1 rounded-full transition-all duration-200 ${!isDark ? 'bg-dark text-cream' : isDark ? 'text-cream/40 hover:text-cream/70' : ''}`}
-              >
-                Light
-              </button>
-              <button
-                onClick={() => setServicesBg('dark')}
-                className={`text-[10px] font-semibold tracking-[0.08em] uppercase px-3 py-1 rounded-full transition-all duration-200 ${isDark ? 'bg-cream text-dark' : 'text-dark/40 hover:text-dark/70'}`}
-              >
-                Dark
-              </button>
-            </div>
+          <div className="text-[11px] text-cream/35 tracking-[0.06em] uppercase border-b border-cream/20 pb-0.5 max-md:hidden">
+            8 Core Services
           </div>
         </div>
 
@@ -223,21 +203,21 @@ export default function About() {
           {services.map((s, i) => (
             <div
               key={i}
-              className={`group flex items-start gap-6 py-[clamp(20px,3vh,28px)] border-b first:border-t cursor-pointer max-md:gap-4 transition-colors duration-300 ${isDark ? 'border-cream/7' : 'border-dark/7'}`}
+              className="group flex items-start gap-6 py-[clamp(20px,3vh,28px)] border-b border-cream/7 first:border-t first:border-cream/7 cursor-pointer max-md:gap-4"
             >
-              <span className={`font-syne text-[11px] tracking-[0.06em] min-w-9 pt-1.25 shrink-0 transition-colors duration-300 ${isDark ? 'text-cream/20' : 'text-dark/20'}`}>
+              <span className="font-syne text-[11px] text-cream/20 tracking-[0.06em] min-w-9 pt-1.25 shrink-0">
                 {s.num}
               </span>
               <div className="flex-1 grid grid-cols-[1fr_1.4fr] gap-8 items-start max-md:grid-cols-1 max-md:gap-1">
-                <div className={`font-syne text-[clamp(14px,1.6vw,20px)] font-bold uppercase tracking-[-0.01em] transition-all duration-300 group-hover:opacity-50 ${isDark ? 'text-cream' : 'text-dark'}`}>
+                <div className="font-syne text-[clamp(14px,1.6vw,20px)] font-bold text-cream uppercase tracking-[-0.01em] transition-opacity group-hover:opacity-50">
                   {s.title}
                 </div>
-                <p className={`text-[clamp(12px,1vw,14px)] leading-[1.75] max-md:mt-1 transition-colors duration-300 ${isDark ? 'text-cream/45' : 'text-dark/45'}`}>
+                <p className="text-[clamp(12px,1vw,14px)] text-cream/45 leading-[1.75] max-md:mt-1">
                   {s.body}
                 </p>
               </div>
-              <div className={`w-7 h-7 border rounded-full flex items-center justify-center shrink-0 mt-0.5 max-md:hidden transition-colors duration-300 ${isDark ? 'border-cream/18' : 'border-dark/18'}`}>
-                <svg className={`w-3 h-3 opacity-45 transition-colors duration-300 ${isDark ? 'stroke-cream' : 'stroke-dark'}`} viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <div className="w-7 h-7 border border-cream/18 rounded-full flex items-center justify-center shrink-0 mt-0.5 max-md:hidden">
+                <svg className="w-3 h-3 stroke-cream opacity-45" viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="7" y1="17" x2="17" y2="7" />
                   <polyline points="7 7 17 7 17 17" />
                 </svg>

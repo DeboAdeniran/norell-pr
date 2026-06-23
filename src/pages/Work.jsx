@@ -119,7 +119,7 @@ function Editorial() {
       {/* Second row */}
       <div className="grid grid-cols-3 gap-2.5 max-md:grid-cols-1">
         <div className="col-span-2 max-md:col-span-1 relative rounded-[20px] overflow-hidden h-52 group cursor-pointer">
-          <img src={beauty.img} alt="Beauty by aD" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" />
+          <img src={beauty.img} alt="Beauty by aD" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" style={{ objectPosition: 'center 25%' }} />
           <div className="absolute inset-0 bg-linear-to-r from-dark/78 to-transparent" />
           <div className="absolute inset-0 p-7 flex flex-col justify-end">
             <div className="text-[10px] text-cream/40 tracking-[0.14em] uppercase mb-1.5">Portrait · Beauty by aD</div>
@@ -221,49 +221,56 @@ function Grid() {
       </div>
 
       <div className="grid grid-cols-3 gap-2.5 max-md:grid-cols-1">
-        {/* Beauty by aD — large hero card */}
-        <div className="col-span-2 max-md:col-span-1 relative rounded-[20px] overflow-hidden h-[62vh] max-md:h-[65vw] group cursor-pointer">
-          <img src={beauty.imgCampaign} alt="Beauty by aD" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" />
-          <div className="absolute inset-0 bg-linear-to-t from-dark/85 via-dark/20 to-transparent" />
-          <div className="absolute inset-0 p-8 flex flex-col justify-between">
-            <div className="flex items-start justify-between">
-              <div className="flex flex-wrap gap-1.5">
-                {beauty.tags.slice(0, 2).map((t, i) => <Tag key={i} label={t} light />)}
-              </div>
-              <div className="w-8 h-8 rounded-full border border-cream/25 flex items-center justify-center">
-                <Arrow className="w-3 h-3 stroke-cream" />
-              </div>
-            </div>
-            <div>
-              <div className="text-cream/30 text-[10px] tracking-widest uppercase mb-2">{beauty.year}</div>
-              <div className="font-syne text-[clamp(20px,3.5vw,48px)] font-extrabold text-cream uppercase tracking-[-0.02em] leading-[1]">{beauty.name}</div>
-              <div className="text-[11px] text-cream/40 tracking-widest uppercase mt-2">Brand Launch · Africa</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Momdates */}
-        <div className="rounded-[20px] bg-wine h-[62vh] max-md:h-60 relative overflow-hidden group cursor-pointer flex flex-col justify-between p-7">
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.07]">
-            <img src={moms.logo} alt="" style={{ filter: 'brightness(0) invert(1)' }} className="w-full px-6" />
+        {/* Momdates — col-span-2 left */}
+        <div className="col-span-2 max-md:col-span-1 rounded-[20px] bg-wine h-[62vh] max-md:h-[68vw] relative overflow-hidden group cursor-pointer flex flex-col justify-between p-8">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <img src={moms.logo} alt="" style={{ filter: 'brightness(0) invert(1)', opacity: 0.3 }} className="w-2/3 max-w-72" />
           </div>
           <div className="flex items-start justify-between relative z-10">
-            <Tag label={moms.tags[0]} light />
-            <div className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center">
+            <div className="flex flex-wrap gap-1.5">
+              {moms.tags.map((t, i) => <Tag key={i} label={t} light />)}
+            </div>
+            <div className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center shrink-0">
               <Arrow className="w-3 h-3 stroke-cream opacity-60" />
             </div>
           </div>
           <div className="relative z-10">
             <div className="text-cream/30 text-[10px] tracking-widest uppercase mb-2">{moms.year}</div>
-            <div className="font-syne text-[clamp(18px,2.5vw,34px)] font-extrabold text-cream uppercase tracking-[-0.02em] leading-[1]">{moms.name}</div>
-            <div className="text-[11px] text-cream/35 tracking-widest uppercase mt-2">Platform Launch</div>
+            <div className="font-syne text-[clamp(26px,3.5vw,52px)] font-extrabold text-cream uppercase tracking-[-0.02em] leading-[1]">{moms.name}</div>
+            <div className="text-cream/50 text-[13px] mt-3 leading-[1.65] italic">{moms.sub}</div>
+          </div>
+        </div>
+
+        {/* Beauty by aD — col-span-1 right */}
+        <div className="relative rounded-[20px] overflow-hidden h-[62vh] max-md:h-[65vw] group cursor-pointer">
+          <img src={beauty.imgCampaign} alt="Beauty by aD" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" />
+          <div className="absolute inset-0 bg-linear-to-t from-dark/85 via-dark/20 to-transparent" />
+          <div className="absolute inset-0 p-7 flex flex-col justify-between">
+            <div className="flex items-start justify-between">
+              <div className="flex flex-wrap gap-1.5">
+                {beauty.tags.slice(0, 2).map((t, i) => <Tag key={i} label={t} light />)}
+              </div>
+              <div className="w-8 h-8 rounded-full border border-cream/25 flex items-center justify-center shrink-0">
+                <Arrow className="w-3 h-3 stroke-cream" />
+              </div>
+            </div>
+            <div>
+              <div className="text-cream/30 text-[10px] tracking-widest uppercase mb-2">{beauty.year}</div>
+              <div className="font-syne text-[clamp(18px,2.5vw,36px)] font-extrabold text-cream uppercase tracking-[-0.02em] leading-[1]">{beauty.name}</div>
+              <div className="text-[11px] text-cream/40 tracking-widest uppercase mt-2">Brand Launch · Africa</div>
+            </div>
           </div>
         </div>
 
         {/* Portrait secondary */}
-        <div className="relative rounded-[20px] overflow-hidden h-52 group cursor-pointer">
-          <img src={beauty.img} alt="Beauty by aD portrait" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]" />
-          <div className="absolute inset-0 bg-dark/45" />
+        <div className="relative rounded-[20px] overflow-hidden h-64 group cursor-pointer">
+          <img
+            src={beauty.img}
+            alt="Beauty by aD portrait"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            style={{ objectPosition: 'center 25%' }}
+          />
+          <div className="absolute inset-0 bg-dark/40" />
           <div className="absolute bottom-5 left-5">
             <div className="font-syne text-cream font-bold text-sm uppercase">Campaign Portrait</div>
             <div className="text-[10px] text-cream/40 tracking-widest uppercase">Beauty by aD</div>

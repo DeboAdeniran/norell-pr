@@ -17,8 +17,8 @@ const beauty = {
     'Trended locally on social media at launch weekend',
     'Influencer partnerships with 8 creators across Nigeria and the UK',
   ],
-  img: '/beautybyAd/PTP08250.jpg',
-  imgCampaign: '/beautybyAd/PTP08180-Recovered-Recovered.jpg',
+  img: '/beautybyAD/PTP08250.jpg',
+  imgCampaign: '/beautybyAD/PTP08180-Recovered-Recovered.jpg',
 }
 
 const moms = {
@@ -93,8 +93,8 @@ function Editorial() {
           </div>
         </div>
 
-        {/* Momdates — dark typographic */}
-        <div className="relative rounded-[20px] bg-dark h-[78vh] max-md:h-[55vw] group cursor-pointer flex flex-col justify-between p-8 overflow-hidden">
+        {/* Momdates — wine typographic */}
+        <div className="relative rounded-[20px] bg-wine h-[78vh] max-md:h-[55vw] group cursor-pointer flex flex-col justify-between p-8 overflow-hidden">
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.06]">
             <img src={moms.logo} alt="" className="w-[85%]" style={{ filter: 'brightness(0) invert(1)' }} />
           </div>
@@ -181,8 +181,8 @@ function CaseStudy() {
           </div>
 
           {isLogo ? (
-            <div className="h-[480px] max-md:h-52 flex items-center justify-center bg-dark">
-              <img src={client.logo} alt={client.name} className="w-52 max-md:w-36" style={{ filter: 'brightness(0) invert(1)', opacity: 0.75 }} />
+            <div className="h-[480px] max-md:h-52 flex items-center justify-center bg-wine">
+              <img src={client.logo} alt={client.name} className="w-52 max-md:w-36" style={{ filter: 'brightness(0) invert(1)', opacity: 0.65 }} />
             </div>
           ) : (
             <div className="h-[480px] max-md:h-64 overflow-hidden">
@@ -243,7 +243,7 @@ function Grid() {
         </div>
 
         {/* Momdates */}
-        <div className="rounded-[20px] bg-dark h-[62vh] max-md:h-60 relative overflow-hidden group cursor-pointer flex flex-col justify-between p-7">
+        <div className="rounded-[20px] bg-wine h-[62vh] max-md:h-60 relative overflow-hidden group cursor-pointer flex flex-col justify-between p-7">
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.07]">
             <img src={moms.logo} alt="" style={{ filter: 'brightness(0) invert(1)' }} className="w-full px-6" />
           </div>
@@ -307,7 +307,7 @@ function Classic() {
       </div>
 
       {/* Client tab selector — Unearth style */}
-      <div className="bg-dark rounded-[20px] p-1.5 flex gap-1.5">
+      <div className="bg-wine rounded-[20px] p-1.5 flex gap-1.5">
         {[{ id: 'beauty', label: 'Beauty by aD' }, { id: 'momdates', label: 'Momdates' }].map(c => (
           <button
             key={c.id}
@@ -366,7 +366,7 @@ function Classic() {
       </div>
 
       {/* Redrick closing statement */}
-      <div className="bg-dark rounded-[20px] py-[clamp(36px,5vh,56px)] px-[clamp(28px,4vw,56px)] flex flex-col gap-7">
+      <div className="bg-wine rounded-[20px] py-[clamp(36px,5vh,56px)] px-[clamp(28px,4vw,56px)] flex flex-col gap-7">
         <div className="font-syne font-extrabold uppercase text-cream leading-[1] tracking-[-0.02em] text-[clamp(22px,4.5vw,64px)]">
           Attention is earned.<br />Results are built.
         </div>

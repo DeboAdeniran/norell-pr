@@ -80,6 +80,8 @@ export default function Work() {
           <img
             src={beauty.imgCampaign}
             alt="Beauty by aD"
+            decoding="async"
+            fetchPriority="high"
             className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
           />
           <div className="absolute inset-0 bg-linear-to-t from-dark/85 via-dark/20 to-transparent" />
@@ -106,6 +108,8 @@ export default function Work() {
           <img
             src={beauty.img}
             alt="Beauty by aD portrait"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
             style={{ objectPosition: 'center 25%' }}
           />

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
 const clients = {
@@ -139,7 +139,15 @@ export default function WorkDetail() {
   const touchStartX = useRef(0)
   const touchStartY = useRef(0)
 
-  const images = client?.images ?? []
+  const images = useMemo(() => client?.images ?? [], [client])
+
+  // Preload the next image so navigation feels instant
+  useEffect(() => {
+    const next = images[current + 1]
+    if (!next) return
+    const img = new window.Image()
+    img.src = next
+  }, [current, images])
 
   useEffect(() => {
     const handler = () => setIsMobile(window.innerWidth < 768)
@@ -211,6 +219,8 @@ export default function WorkDetail() {
               <img
                 src={img}
                 alt={client.name}
+                decoding="async"
+                fetchPriority={pos === 0 ? 'high' : 'low'}
                 style={{
                   display: 'block',
                   width: '100%', height: '100%',

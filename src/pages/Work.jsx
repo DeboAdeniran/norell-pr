@@ -84,6 +84,7 @@ export default function Work() {
             className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
           />
           <div className="absolute inset-0 bg-linear-to-t from-dark/85 via-dark/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-b from-dark/55 to-transparent" />
           <div className="absolute inset-0 p-7 flex flex-col justify-between">
             <div className="flex items-start justify-between">
               <div className="flex flex-wrap gap-1.5">

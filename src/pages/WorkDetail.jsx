@@ -11,6 +11,7 @@ const clients = {
       '/beautybyAD/PTP08180-Recovered-Recovered.jpg',
       '/beautybyAD/PTP08250.jpg',
       '/beautybyAD/2.jpg',
+      '/beautybyAD/1%20(11).jpg',
     ],
     outcomes: [
       'Coverage across 12+ beauty & lifestyle publications',

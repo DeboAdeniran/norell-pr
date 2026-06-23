@@ -54,7 +54,7 @@ export default function Work() {
       <div className="grid grid-cols-3 gap-2.5 max-md:grid-cols-1">
 
         {/* Momdates — col-span-2, wine card */}
-        <div className="col-span-2 max-md:col-span-1 rounded-[20px] bg-wine h-[62vh] max-md:h-[68vw] relative overflow-hidden group cursor-pointer flex flex-col justify-between p-8">
+        <Link to="/work/momdates" className="col-span-2 max-md:col-span-1 rounded-[20px] bg-wine h-[62vh] max-md:h-[68vw] relative overflow-hidden group flex flex-col justify-between p-8 no-underline">
           {/* Logo — natural, with dark overlay on top */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <img src={moms.logo} alt="" className="w-64 max-md:w-44 block rounded-[14px]" style={{ opacity: 0.75 }} />
@@ -73,10 +73,10 @@ export default function Work() {
             <div className="font-syne text-[clamp(26px,3.5vw,52px)] font-extrabold text-cream uppercase tracking-[-0.02em] leading-none">{moms.name}</div>
             <div className="text-cream/50 text-[13px] mt-3 leading-[1.65] italic">{moms.sub}</div>
           </div>
-        </div>
+        </Link>
 
         {/* Beauty by aD — col-span-1, photo card */}
-        <div className="relative rounded-[20px] overflow-hidden h-[62vh] max-md:h-[65vw] group cursor-pointer">
+        <Link to="/work/beauty-by-ad" className="relative rounded-[20px] overflow-hidden h-[62vh] max-md:h-[65vw] group no-underline">
           <img
             src={beauty.imgCampaign}
             alt="Beauty by aD"
@@ -99,7 +99,7 @@ export default function Work() {
               <div className="text-[11px] text-cream/40 tracking-widest uppercase mt-2">Brand Launch · Africa</div>
             </div>
           </div>
-        </div>
+        </Link>
 
         {/* Portrait — col-span-1 */}
         <div className="relative rounded-[20px] overflow-hidden h-64 group cursor-pointer">

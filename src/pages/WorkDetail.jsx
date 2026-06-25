@@ -1,357 +1,238 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
 const clients = {
   'beauty-by-ad': {
     name: 'Beauty by aD',
-    year: '2025',
-    category: 'Brand Launch · Africa',
-    tags: ['Brand Launch', 'Media Relations', 'Influencer Strategy'],
+    heading: 'BeautybyAD – Luxe Matte Wear Foundation Launch',
     images: [
       '/beautybyAD/PTP08180-Recovered-Recovered.jpg',
       '/beautybyAD/PTP08250.jpg',
       '/beautybyAD/2.jpg',
       '/beautybyAD/1%20(11).jpg',
     ],
-    outcomes: [
-      'Coverage across 12+ beauty & lifestyle publications',
-      '2.3M+ influencer impressions in 30 days',
-      'Trended on social media at launch weekend',
-      'Influencer partnerships with 8 creators across Nigeria & UK',
+    description: [
+      'The Luxe Matte Wear Foundation launch was a comprehensive beauty campaign designed to introduce BeautybyAD\'s newest complexion product to the market through high-impact visual storytelling, strategic influencer engagement, and widespread product seeding. The campaign combined a large-scale production shoot with an extensive earned media strategy to position the foundation as a must-have beauty product across key markets.',
+      'The campaign began with an intensive model casting and shade-matching process. Over 80 models participated in the selection phase, allowing the brand to showcase the foundation\'s inclusivity and extensive shade range. Following the casting process, 24 models were selected for the official launch shoot, which served as the foundation for all campaign assets. The production delivered a comprehensive library of high-quality photography and video content that captured the versatility, performance, and broad shade spectrum of the product.',
+      'Following the shoot, the campaign transitioned into a strategic influencer and makeup artist seeding phase. A carefully curated list of beauty creators, industry professionals, and makeup artists was developed to ensure the product reached credible voices within the beauty community. Seeding kits containing either 20-product collections or 3-product sets were distributed to recipients across multiple markets, including Nigeria, the United Kingdom, Canada, the United States, South Africa, and Ghana.',
+      'The campaign generated significant earned media and organic social visibility, with influencers and beauty professionals voluntarily sharing their experiences with the product across digital platforms. Notably, all coverage was achieved without paid partnerships, resulting in authentic product advocacy and widespread organic conversations within the beauty industry. The combination of strategic seeding, creator engagement, and compelling launch assets successfully amplified awareness, strengthened product credibility, and drove extensive visibility for the Luxe Matte Wear Foundation across local and international markets.',
+    ],
+    meta: [
+      { label: 'Client', value: 'BeautybyAD' },
+      { label: 'Campaign', value: 'Luxe Matte Wear Foundation Launch' },
+      { label: 'Year', value: '2026' },
     ],
   },
   momdates: {
     name: 'Momdates',
-    year: '2026',
-    category: 'Platform Launch',
-    tags: ['Brand Communications', 'Digital PR', 'Platform Launch'],
+    heading: 'MomDates – Scents & Stories',
     images: ['/momdate/Momdates%20Logo%20(2).png'],
     isLogo: true,
-    outcomes: [
-      'Pre-launch waitlist exceeded projections by 3×',
-      'Featured across 5+ parenting & lifestyle publications',
-      '1,200+ community members within 60 days',
-      'Organic social growth of 180% in first month',
+    description: [
+      'Scents & Stories was an intimate MomDates experience created to celebrate mothers through a thoughtfully curated afternoon of connection, self-care, and indulgence. Designed as a rare opportunity for mothers to step away from the demands of everyday life, the event provided a dedicated space where they could simply be cared for, connect with other women, and enjoy a moment that was entirely their own.',
+      'Norell PR led the sponsorship strategy and curation for the event, taking a deliberate quality-over-quantity approach to brand partnerships. Rather than pursuing sponsorship for visibility alone, the team carefully selected five brands whose products and values naturally aligned with the needs and interests of the audience: Arami Essentials, Bolden Skincare, Besense, Bekiri, and Roel Beauty.',
+      'The sponsorship strategy was built around relevance and experience. Each partner was chosen for its ability to contribute meaningfully to the event, ensuring that every touchpoint felt intentional and enhanced the overall experience for attendees. The result was a seamless integration of brands that complemented the event\'s core themes of wellness, beauty, self-care, and appreciation for mothers.',
+      'The event exceeded attendance expectations and delivered a highly positive experience for guests. Mothers responded enthusiastically to the carefully curated gifting experience, with many attendees organically sharing their goody bags and event moments across social media. These authentic expressions of appreciation generated valuable earned content, reinforcing the event\'s impact and creating genuine social proof around both the MomDates platform and its sponsoring brands.',
+      'Ultimately, Scents & Stories demonstrated the power of thoughtful sponsorship curation, proving that when brands are aligned with audience needs and event purpose, partnerships can create meaningful experiences that resonate far beyond the event itself.',
+    ],
+    meta: [
+      { label: 'Client', value: 'MomDates' },
+      { label: 'Year', value: '2026' },
     ],
   },
 }
 
-function frameStyle(pos, isMobile) {
-  const base = {
-    position: 'absolute',
-    overflow: 'hidden',
-    borderRadius: '10px',
-    cursor: pos === 0 ? 'zoom-in' : 'pointer',
-    transition: 'all 0.65s cubic-bezier(0.4, 0, 0.2, 1)',
-    userSelect: 'none',
-  }
+function ImageGrid({ images, isLogo, name, onZoom, onMouseMove, onMouseLeave }) {
+  const wrapCls = 'rounded-[20px] overflow-hidden cursor-none'
+  const imgCls = 'w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.03]'
 
-  if (isMobile) {
-    switch (pos) {
-      case 0:
-        return {
-          ...base,
-          width: '88vw', height: '58vw',
-          top: '50%', left: '50%',
-          transform: 'translate(-50%, -50%)',
-          zIndex: 10,
-          boxShadow: '0 24px 80px rgba(0,0,0,0.92)',
-        }
-      case -1:
-        return {
-          ...base,
-          width: '58vw', height: '38vw',
-          top: '50%', left: '-14vw',
-          transform: 'translateY(-50%) perspective(500px) rotateY(32deg)',
-          zIndex: 5,
-          boxShadow: '0 12px 40px rgba(0,0,0,0.95)',
-        }
-      default:
-        return {
-          ...base,
-          width: '58vw', height: '38vw',
-          top: '50%', left: '-120vw',
-          transform: 'translateY(-50%)',
-          zIndex: 1,
-          opacity: 0,
-          pointerEvents: 'none',
-        }
-    }
-  }
+  const handlers = (src) => ({
+    onClick: () => onZoom(src),
+    onMouseMove,
+    onMouseLeave,
+  })
 
-  // Desktop
-  switch (pos) {
-    case 0:
-      return {
-        ...base,
-        width: '56vw', height: '70vh',
-        top: '50%', left: '40vw',
-        transform: 'translateY(-50%)',
-        zIndex: 10,
-        boxShadow: '0 48px 140px rgba(0,0,0,0.88), 0 0 0 1px rgba(255,255,255,0.04)',
-      }
-    case -1:
-      return {
-        ...base,
-        width: '21vw', height: '43vh',
-        top: '50%', left: '17vw',
-        transform: 'translateY(-50%) perspective(900px) rotateY(28deg)',
-        zIndex: 7,
-        boxShadow: '0 24px 80px rgba(0,0,0,0.94)',
-      }
-    case -2:
-      return {
-        ...base,
-        width: '13vw', height: '27vh',
-        top: '50%', left: '6.5vw',
-        transform: 'translateY(-50%) perspective(900px) rotateY(38deg)',
-        zIndex: 4,
-        boxShadow: '0 12px 50px rgba(0,0,0,0.96)',
-      }
-    case -3:
-      return {
-        ...base,
-        width: '7vw', height: '15vh',
-        top: '50%', left: '1.5vw',
-        transform: 'translateY(-50%) perspective(900px) rotateY(46deg)',
-        zIndex: 2,
-        boxShadow: '0 6px 24px rgba(0,0,0,0.96)',
-      }
-    default:
-      return {
-        ...base,
-        width: '56vw', height: '70vh',
-        top: '50%', left: '110vw',
-        transform: 'translateY(-50%)',
-        zIndex: 0,
-        opacity: 0,
-        pointerEvents: 'none',
-      }
-  }
-}
-
-export default function WorkDetail() {
-  const { slug } = useParams()
-  const client = clients[slug]
-  const [current, setCurrent] = useState(0)
-  const [focused, setFocused] = useState(false)
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
-  const touchStartX = useRef(0)
-  const touchStartY = useRef(0)
-
-  const images = useMemo(() => client?.images ?? [], [client])
-
-  // Preload the next image so navigation feels instant
-  useEffect(() => {
-    const next = images[current + 1]
-    if (!next) return
-    const img = new window.Image()
-    img.src = next
-  }, [current, images])
-
-  useEffect(() => {
-    const handler = () => setIsMobile(window.innerWidth < 768)
-    window.addEventListener('resize', handler)
-    return () => window.removeEventListener('resize', handler)
-  }, [])
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handler = (e) => {
-      if (e.key === 'Escape') { setFocused(false); return }
-      if (focused) return
-      if (e.key === 'ArrowRight') setCurrent(c => Math.min(c + 1, images.length - 1))
-      if (e.key === 'ArrowLeft') setCurrent(c => Math.max(c - 1, 0))
-    }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [focused, images.length])
-
-  const onTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX
-    touchStartY.current = e.touches[0].clientY
-  }
-
-  const onTouchEnd = (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX.current
-    const dy = e.changedTouches[0].clientY - touchStartY.current
-    if (focused) {
-      if (dy > 60) setFocused(false)
-      return
-    }
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-      if (dx < 0) setCurrent(c => Math.min(c + 1, images.length - 1))
-      else setCurrent(c => Math.max(c - 1, 0))
-    }
-  }
-
-  if (!client) {
+  if (isLogo || images.length === 1) {
     return (
-      <div className="fixed inset-0 bg-dark flex items-center justify-center">
-        <Link to="/work" className="text-cream/60 hover:text-cream text-sm no-underline">← Back to Work</Link>
+      <div
+        className="bg-cream border border-dark/8 rounded-[20px] flex items-center justify-center py-20 max-md:py-14 cursor-none"
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
+        onClick={() => onZoom(images[0])}
+      >
+        <img src={images[0]} alt={name} className="w-64 max-md:w-48 rounded-xl" decoding="async" />
       </div>
     )
   }
 
   return (
-    <div
-      className="fixed inset-0 bg-dark overflow-hidden font-inter"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
-    >
-      {/* ── 3D GALLERY STAGE ── */}
-      <div
-        className="absolute inset-0"
-        style={{ perspective: '1200px', zIndex: 1, position: 'absolute' }}
-      >
-        {images.map((img, i) => {
-          const pos = i - current
-          if (pos > 0 || pos < -3) return null
-          const s = frameStyle(pos, isMobile)
-          const darkOverlay = pos < 0 ? Math.min(0.78, Math.abs(pos) * 0.32) : 0
-
-          return (
-            <div
-              key={i}
-              style={s}
-              onClick={() => pos === 0 ? setFocused(true) : setCurrent(i)}
-            >
-              <img
-                src={img}
-                alt={client.name}
-                decoding="async"
-                fetchPriority={pos === 0 ? 'high' : 'low'}
-                style={{
-                  display: 'block',
-                  width: '100%', height: '100%',
-                  objectFit: client.isLogo ? 'contain' : 'cover',
-                  objectPosition: 'center 20%',
-                  background: client.isLogo ? '#eadfc4' : 'transparent',
-                  padding: client.isLogo ? '12%' : '0',
-                }}
-              />
-              {darkOverlay > 0 && (
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: `rgba(11,9,9,${darkOverlay})`,
-                  pointerEvents: 'none',
-                }} />
-              )}
-            </div>
-          )
-        })}
+    <div className="flex flex-col gap-2.5">
+      <div className={`${wrapCls} h-[60vh] max-md:h-[58vw]`} {...handlers(images[0])}>
+        <img src={images[0]} alt={name} fetchPriority="high" decoding="async" className={imgCls} />
       </div>
 
-      {/* ── ROOM SHADOW VIGNETTE ── */}
-      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
-        {/* Floor */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '38%', background: 'linear-gradient(to top, rgba(11,9,9,0.88) 0%, transparent 100%)' }} />
-        {/* Ceiling */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '22%', background: 'linear-gradient(to bottom, rgba(11,9,9,0.72) 0%, transparent 100%)' }} />
-        {/* Left wall */}
-        <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, width: '22%', background: 'linear-gradient(to right, rgba(11,9,9,0.85) 0%, transparent 100%)' }} />
-        {/* Right edge */}
-        <div style={{ position: 'absolute', top: 0, bottom: 0, right: 0, width: '8%', background: 'linear-gradient(to left, rgba(11,9,9,0.55) 0%, transparent 100%)' }} />
-        {/* Corner accent shadows — top-left and bottom-left */}
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '35%', height: '35%', background: 'radial-gradient(ellipse at top left, rgba(11,9,9,0.6) 0%, transparent 70%)' }} />
-        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '35%', height: '35%', background: 'radial-gradient(ellipse at bottom left, rgba(11,9,9,0.7) 0%, transparent 70%)' }} />
-      </div>
-
-      {/* ── TOP BAR ── */}
-      <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-7 py-6 max-md:px-4 max-md:py-5" style={{ zIndex: 3 }}>
-        <Link
-          to="/work"
-          className="text-[11px] font-semibold tracking-[0.1em] uppercase text-cream/45 hover:text-cream transition-colors no-underline"
-        >
-          ← Work
-        </Link>
-        {images.length > 1 && (
-          <span className="font-syne text-[11px] tracking-widest text-cream/25">
-            {String(current + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
-          </span>
-        )}
-      </div>
-
-      {/* ── BOTTOM LEFT: project info ── */}
-      <div className="absolute bottom-7 left-7 max-md:bottom-5 max-md:left-4" style={{ zIndex: 3 }}>
-        <p className="font-syne font-extrabold text-cream uppercase leading-none tracking-[-0.01em]" style={{ fontSize: 'clamp(14px, 1.8vw, 24px)' }}>
-          {client.name}
-        </p>
-        <p className="text-cream/35 text-[10px] tracking-widest uppercase mt-1.5">{client.category}</p>
-        <div className="mt-4 flex flex-col gap-1 max-md:mt-2.5">
-          {client.outcomes.slice(0, 2).map((o, i) => (
-            <p key={i} className="text-cream/50 text-[11px] leading-[1.65] max-md:text-[10px]">→ {o}</p>
-          ))}
-        </div>
-      </div>
-
-      {/* ── BOTTOM RIGHT: prev/next ── */}
-      {images.length > 1 && (
-        <div className="absolute bottom-7 right-7 max-md:bottom-5 max-md:right-4 flex items-center gap-2.5" style={{ zIndex: 3 }}>
-          <button
-            onClick={() => setCurrent(c => Math.max(c - 1, 0))}
-            disabled={current === 0}
-            className="w-8 h-8 rounded-full border border-cream/15 flex items-center justify-center text-cream/40 hover:text-cream hover:border-cream/35 transition-all disabled:opacity-20 disabled:cursor-not-allowed text-base"
-          >‹</button>
-          <button
-            onClick={() => setCurrent(c => Math.min(c + 1, images.length - 1))}
-            disabled={current === images.length - 1}
-            className="w-8 h-8 rounded-full border border-cream/15 flex items-center justify-center text-cream/40 hover:text-cream hover:border-cream/35 transition-all disabled:opacity-20 disabled:cursor-not-allowed text-base"
-          >›</button>
+      {images.length >= 3 && (
+        <div className="grid grid-cols-[1.4fr_1fr] gap-2.5 max-md:grid-cols-1">
+          <div className={`${wrapCls} h-[48vh] max-md:h-[52vw]`} {...handlers(images[1])}>
+            <img src={images[1]} alt={name} loading="lazy" decoding="async" className={imgCls} />
+          </div>
+          <div className={`${wrapCls} h-[48vh] max-md:h-[52vw]`} {...handlers(images[2])}>
+            <img src={images[2]} alt={name} loading="lazy" decoding="async" className={`${imgCls} object-top`} />
+          </div>
         </div>
       )}
 
-      {/* ── ZOOM OVERLAY ── */}
-      <div
-        className="fixed inset-0 flex items-center justify-center"
-        style={{
-          zIndex: 50,
-          background: focused ? 'rgba(11,9,9,0.95)' : 'rgba(11,9,9,0)',
-          opacity: focused ? 1 : 0,
-          pointerEvents: focused ? 'auto' : 'none',
-          transition: 'background 0.35s, opacity 0.35s',
-        }}
-        onClick={() => setFocused(false)}
-      >
-        <img
-          src={images[current]}
-          alt={client.name}
-          onClick={e => e.stopPropagation()}
-          style={{
-            maxWidth: '90vw',
-            maxHeight: '85vh',
-            objectFit: 'contain',
-            borderRadius: '8px',
-            boxShadow: '0 48px 140px rgba(0,0,0,0.85)',
-            transform: focused ? 'scale(1)' : 'scale(0.88)',
-            transition: 'transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)',
-            background: client.isLogo ? '#eadfc4' : 'transparent',
-            padding: client.isLogo ? '5%' : '0',
-          }}
-        />
+      {images[3] && (
+        <div className={`${wrapCls} h-[55vh] max-md:h-[58vw]`} {...handlers(images[3])}>
+          <img src={images[3]} alt={name} loading="lazy" decoding="async" className={imgCls} />
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default function WorkDetail() {
+  const { slug } = useParams()
+  const client = clients[slug]
+  const [zoomed, setZoomed] = useState(null)
+  const [cursor, setCursor] = useState({ x: 0, y: 0, visible: false })
+  const touchStartY = useRef(0)
+
+  const handleImgMouseMove = (e) => setCursor({ x: e.clientX, y: e.clientY, visible: true })
+  const handleImgMouseLeave = () => setCursor(c => ({ ...c, visible: false }))
+
+  // Close on Escape
+  useEffect(() => {
+    if (!zoomed) return
+    const handler = (e) => { if (e.key === 'Escape') setZoomed(null) }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [zoomed])
+
+  // Prevent body scroll while zoomed
+  useEffect(() => {
+    document.body.style.overflow = zoomed ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [zoomed])
+
+  if (!client) {
+    return (
+      <div className="mt-21.5 max-md:mt-18.5 flex items-center justify-center h-64">
+        <Link to="/work" className="text-dark/50 hover:text-dark text-sm no-underline">← Back to Work</Link>
+      </div>
+    )
+  }
+
+  return (
+    <div className="mt-21.5 max-md:mt-18.5">
+
+      {/* ── BREADCRUMB ── */}
+      <div className="flex items-center gap-3 mb-5 max-md:mb-4">
+        <Link
+          to="/work"
+          className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.1em] uppercase text-dark/40 hover:text-dark transition-colors no-underline"
+        >
+          <svg className="w-3.5 h-3.5 stroke-current" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          Work
+        </Link>
+        <span className="text-dark/20 text-[10px]">/</span>
+        <span className="text-[11px] text-dark/30 tracking-[0.08em] uppercase truncate">{client.name}</span>
       </div>
 
-      {/* ── X CLOSE BUTTON (drops from top when focused) ── */}
-      <button
-        onClick={() => setFocused(false)}
+      {/* ── IMAGE GRID ── */}
+      <ImageGrid
+        images={client.images}
+        isLogo={client.isLogo}
+        name={client.name}
+        onZoom={setZoomed}
+        onMouseMove={handleImgMouseMove}
+        onMouseLeave={handleImgMouseLeave}
+      />
+
+      {/* ── CUSTOM CURSOR LABEL ── */}
+      <div
+        className="fixed pointer-events-none z-50 select-none"
         style={{
-          position: 'fixed',
-          top: '20px',
-          left: '50%',
-          zIndex: 60,
-          transform: focused
-            ? 'translateX(-50%) translateY(0)'
-            : 'translateX(-50%) translateY(-72px)',
-          opacity: focused ? 1 : 0,
-          pointerEvents: focused ? 'auto' : 'none',
-          transition: focused
-            ? 'transform 0.48s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s'
-            : 'transform 0.22s ease-in, opacity 0.2s',
+          left: cursor.x,
+          top: cursor.y,
+          transform: 'translate(-50%, -50%)',
+          opacity: cursor.visible ? 1 : 0,
+          transition: 'opacity 0.15s',
         }}
-        className="w-11 h-11 rounded-full bg-cream text-dark font-bold text-xl flex items-center justify-center hover:bg-wine hover:text-cream transition-colors"
       >
-        ×
-      </button>
+        <span className="bg-dark text-cream text-[10px] font-semibold tracking-[0.14em] uppercase px-3.5 py-2 rounded-full">
+          Click to view
+        </span>
+      </div>
+
+      {/* ── CAMPAIGN TEXT ── */}
+      <div className="section bg-cream border border-dark/8 rounded-[20px] px-[clamp(28px,4vw,64px)] py-[clamp(40px,6vh,72px)]">
+        <h1
+          className="font-syne font-extrabold text-dark uppercase tracking-[-0.03em] leading-[1.0] mb-10 max-md:mb-8"
+          style={{ fontSize: 'clamp(20px, 3vw, 44px)' }}
+        >
+          {client.heading}
+        </h1>
+
+        <div className="flex gap-16 items-start max-md:flex-col max-md:gap-10">
+          {/* Description */}
+          <div className="flex-1 flex flex-col gap-5">
+            {client.description.map((p, i) => (
+              <p key={i} className="text-dark/60 text-[14px] leading-[1.85] max-md:text-[13px]">
+                {p}
+              </p>
+            ))}
+          </div>
+
+          {/* Metadata sidebar */}
+          <div className="shrink-0 w-52 max-md:w-full flex flex-col gap-6 max-md:flex-row max-md:flex-wrap max-md:gap-x-10 max-md:gap-y-5 pt-1">
+            {client.meta.map(({ label, value }) => (
+              <div key={label}>
+                <div className="text-[9px] font-semibold tracking-[0.16em] uppercase text-dark/30 mb-1.5">{label}</div>
+                <div className="text-[13px] text-dark leading-[1.5]">{value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── LIGHTBOX ── */}
+      {zoomed && (
+        <div
+          className="fixed inset-0 z-200 flex items-center justify-center"
+          style={{ background: 'rgba(0,0,0,0.96)', animation: 'lbFadeIn 0.2s ease' }}
+          onClick={() => setZoomed(null)}
+          onTouchStart={(e) => { touchStartY.current = e.touches[0].clientY }}
+          onTouchEnd={(e) => { if (e.changedTouches[0].clientY - touchStartY.current > 60) setZoomed(null) }}
+        >
+          <img
+            src={zoomed}
+            alt=""
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: '92vw',
+              maxHeight: '88vh',
+              objectFit: 'contain',
+              borderRadius: '10px',
+              animation: 'lbZoomIn 0.3s cubic-bezier(0.34,1.56,0.64,1)',
+            }}
+          />
+          <button
+            onClick={() => setZoomed(null)}
+            className="fixed top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center text-white text-xl leading-none"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes lbFadeIn { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes lbZoomIn { from { transform: scale(0.88); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+      `}</style>
     </div>
   )
 }

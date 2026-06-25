@@ -55,11 +55,12 @@ export default function Work() {
 
         {/* Momdates — equal width */}
         <Link to="/work/momdates" className="rounded-[20px] bg-wine h-[62vh] max-md:h-[68vw] relative overflow-hidden group flex flex-col justify-between p-8 no-underline">
-          {/* Logo — natural, with dark overlay on top */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <img src={moms.logo} alt="" className="w-64 max-md:w-44 block rounded-[14px]" style={{ opacity: 0.75 }} />
-          </div>
-          <div className="absolute inset-0 bg-dark/45 pointer-events-none" />
+          <img
+            src="/momdate/momdate_campaign%20(2).jpeg"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+          <div className="absolute inset-0 bg-dark/55 pointer-events-none" />
           <div className="flex items-start justify-between relative z-10">
             <div className="flex flex-wrap gap-1.5">
               {moms.tags.map((t, i) => <Tag key={i} label={t} light />)}

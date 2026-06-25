@@ -167,53 +167,20 @@ export default function Home() {
           <div className="group relative rounded-[20px] overflow-hidden bg-dark aspect-[4/3] cursor-pointer">
             <div
               className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.04]"
-              style={{
-                background:
-                  "linear-gradient(135deg, #3d0010 0%, #510113 40%, #1a0008 100%)",
-              }}
+              style={{ background: "linear-gradient(135deg, #3d0010 0%, #510113 40%, #1a0008 100%)" }}
             />
-            <svg
-              className="absolute inset-0 w-full h-full opacity-[0.12]"
-              viewBox="0 0 400 300"
-              preserveAspectRatio="xMidYMid slice"
-            >
+            <svg className="absolute inset-0 w-full h-full opacity-[0.12]" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
               <defs>
-                <pattern
-                  id="gp1"
-                  width="30"
-                  height="30"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <path
-                    d="M 30 0 L 0 0 0 30"
-                    fill="none"
-                    stroke="#eadfc4"
-                    strokeWidth="0.5"
-                  />
+                <pattern id="gp1" width="30" height="30" patternUnits="userSpaceOnUse">
+                  <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#eadfc4" strokeWidth="0.5" />
                 </pattern>
               </defs>
               <rect width="400" height="300" fill="url(#gp1)" />
-              <circle
-                cx="200"
-                cy="150"
-                r="80"
-                fill="none"
-                stroke="#eadfc4"
-                strokeWidth="0.6"
-              />
-              <circle
-                cx="200"
-                cy="150"
-                r="50"
-                fill="none"
-                stroke="#eadfc4"
-                strokeWidth="0.4"
-              />
+              <circle cx="200" cy="150" r="80" fill="none" stroke="#eadfc4" strokeWidth="0.6" />
+              <circle cx="200" cy="150" r="50" fill="none" stroke="#eadfc4" strokeWidth="0.4" />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-syne text-[clamp(32px,5vw,64px)] font-extrabold text-cream/[0.06] uppercase tracking-[-0.02em]">
-                Beauty
-              </span>
+              <span className="font-syne text-[clamp(32px,5vw,64px)] font-extrabold text-cream/6 uppercase tracking-[-0.02em]">Beauty</span>
             </div>
             <div className="absolute inset-0 bg-linear-to-t from-wine/95 via-wine/40 to-transparent opacity-0 transition-opacity duration-[400ms] group-hover:opacity-100 flex flex-col justify-end p-7">
               <div className="text-[9px] font-semibold tracking-[0.14em] uppercase text-cream/60 mb-[6px] translate-y-3 transition-transform duration-[400ms] group-hover:translate-y-0">
@@ -241,52 +208,14 @@ export default function Home() {
 
           {/* Card 2 — MomDates */}
           <div className="group relative rounded-[20px] overflow-hidden bg-dark aspect-[4/3] cursor-pointer">
-            <div
-              className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.04]"
-              style={{
-                background:
-                  "linear-gradient(135deg, #0b0909 0%, #1e1010 40%, #2a0a0a 100%)",
-              }}
+            <img
+              src="/momdate/momdate_campaign%20(5).jpeg"
+              alt="MomDates"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.04]"
             />
-            <svg
-              className="absolute inset-0 w-full h-full opacity-[0.12]"
-              viewBox="0 0 400 300"
-              preserveAspectRatio="xMidYMid slice"
-            >
-              <defs>
-                <pattern
-                  id="gp2"
-                  width="24"
-                  height="24"
-                  patternUnits="userSpaceOnUse"
-                  patternTransform="rotate(45)"
-                >
-                  <line
-                    x1="0"
-                    y1="0"
-                    x2="0"
-                    y2="24"
-                    stroke="#eadfc4"
-                    strokeWidth="0.5"
-                  />
-                </pattern>
-              </defs>
-              <rect width="400" height="300" fill="url(#gp2)" />
-              <circle
-                cx="200"
-                cy="150"
-                r="70"
-                fill="none"
-                stroke="#510113"
-                strokeWidth="0.8"
-              />
-              <circle cx="200" cy="150" r="40" fill="#510113" opacity="0.15" />
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-syne text-[clamp(32px,5vw,64px)] font-extrabold text-cream/[0.06] uppercase tracking-[-0.02em]">
-                Mom
-              </span>
-            </div>
+            <div className="absolute inset-0 bg-dark/50" />
             <div className="absolute inset-0 bg-gradient-to-t from-wine/95 via-wine/40 to-transparent opacity-0 transition-opacity duration-[400ms] group-hover:opacity-100 flex flex-col justify-end p-7">
               <div className="text-[9px] font-semibold tracking-[0.14em] uppercase text-cream/60 mb-[6px] translate-y-3 transition-transform duration-[400ms] group-hover:translate-y-0">
                 Campaign · 2025

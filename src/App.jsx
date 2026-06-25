@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Work from './pages/Work'
 import WorkDetail from './pages/WorkDetail'
+import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="work" element={<Work />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
         {/* Full-screen gallery — no Layout wrapper */}
         <Route path="/work/:slug" element={<WorkDetail />} />

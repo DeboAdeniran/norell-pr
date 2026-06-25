@@ -8,8 +8,6 @@ const clients = {
     images: [
       '/beautybyAD/PTP08180-Recovered-Recovered.jpg',
       '/beautybyAD/PTP08250.jpg',
-      '/beautybyAD/2.jpg',
-      '/beautybyAD/1%20(11).jpg',
     ],
     description: [
       'The Luxe Matte Wear Foundation launch was a comprehensive beauty campaign designed to introduce BeautybyAD\'s newest complexion product to the market through high-impact visual storytelling, strategic influencer engagement, and widespread product seeding. The campaign combined a large-scale production shoot with an extensive earned media strategy to position the foundation as a must-have beauty product across key markets.',
@@ -82,16 +80,6 @@ function ImageGrid({ images, isLogo, name, onZoom, onMouseMove, onMouseLeave }) 
         )}
       </div>
 
-      {/* Remaining images */}
-      {images.length > 2 && (
-        <div className="grid grid-cols-2 gap-2.5 items-start max-md:grid-cols-1">
-          {images.slice(2).map((src, i) => (
-            <div key={i} className={wrapCls} {...handlers(src)}>
-              <img src={src} alt={name} loading="lazy" decoding="async" className={fullImgCls} />
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   )
 }

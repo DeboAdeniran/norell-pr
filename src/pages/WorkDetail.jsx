@@ -24,8 +24,14 @@ const clients = {
   momdates: {
     name: 'Momdates',
     heading: 'MomDates – Scents & Stories',
-    images: ['/momdate/Momdates%20Logo%20(2).png'],
-    isLogo: true,
+    images: [
+      '/momdate/momdate_campaign%20(1).jpeg',
+      '/momdate/momdate_campaign%20(2).jpeg',
+      '/momdate/momdate_campaign%20(3).jpeg',
+      '/momdate/momdate_campaign%20(4).jpeg',
+      '/momdate/momdate_campaign%20(5).jpeg',
+      '/momdate/momdate_campaign%20(6).jpeg',
+    ],
     description: [
       'Scents & Stories was an intimate MomDates experience created to celebrate mothers through a thoughtfully curated afternoon of connection, self-care, and indulgence. Designed as a rare opportunity for mothers to step away from the demands of everyday life, the event provided a dedicated space where they could simply be cared for, connect with other women, and enjoy a moment that was entirely their own.',
       'Norell PR led the sponsorship strategy and curation for the event, taking a deliberate quality-over-quantity approach to brand partnerships. Rather than pursuing sponsorship for visibility alone, the team carefully selected five brands whose products and values naturally aligned with the needs and interests of the audience: Arami Essentials, Bolden Skincare, Besense, Bekiri, and Roel Beauty.',
@@ -42,44 +48,35 @@ const clients = {
 
 function ImageGrid({ images, isLogo, name, onZoom, onMouseMove, onMouseLeave }) {
   const wrapCls = 'rounded-[20px] overflow-hidden cursor-none'
-  const imgCls = 'w-full h-full object-cover object-center transition-transform duration-500 hover:scale-[1.03]'
+  const imgCls = 'w-full h-auto block transition-transform duration-500 hover:scale-[1.02]'
 
-  const handlers = (src) => ({
-    onClick: () => onZoom(src),
-    onMouseMove,
-    onMouseLeave,
-  })
+  const handlers = (src) => ({ onClick: () => onZoom(src), onMouseMove, onMouseLeave })
 
-  if (isLogo || images.length === 1) {
-    return (
-      <div
-        className="bg-cream border border-dark/8 rounded-[20px] flex items-center justify-center py-20 max-md:py-14 cursor-none"
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-        onClick={() => onZoom(images[0])}
-      >
-        <img src={images[0]} alt={name} className="w-64 max-md:w-48 rounded-xl" decoding="async" />
-      </div>
-    )
-  }
-
-  // Full natural height — no cropping
-  const fullImgCls = 'w-full h-auto block transition-transform duration-500 hover:scale-[1.02]'
+  // Chunk into pairs for 2-column rows
+  const pairs = []
+  for (let i = 0; i < images.length; i += 2) pairs.push(images.slice(i, i + 2))
 
   return (
     <div className="flex flex-col gap-2.5">
-      {/* People images side by side */}
-      <div className="grid grid-cols-2 gap-2.5 items-start max-md:grid-cols-1">
-        <div className={wrapCls} {...handlers(images[0])}>
-          <img src={images[0]} alt={name} fetchPriority="high" decoding="async" className={fullImgCls} />
+      {pairs.map((pair, row) => (
+        <div
+          key={row}
+          className={`grid gap-2.5 items-start ${pair.length === 2 ? 'grid-cols-2 max-md:grid-cols-1' : 'grid-cols-1'}`}
+        >
+          {pair.map((src, col) => (
+            <div key={col} className={wrapCls} {...handlers(src)}>
+              <img
+                src={src}
+                alt={name}
+                decoding="async"
+                fetchPriority={row === 0 && col === 0 ? 'high' : 'auto'}
+                loading={row === 0 ? 'eager' : 'lazy'}
+                className={imgCls}
+              />
+            </div>
+          ))}
         </div>
-        {images[1] && (
-          <div className={wrapCls} {...handlers(images[1])}>
-            <img src={images[1]} alt={name} loading="lazy" decoding="async" className={fullImgCls} />
-          </div>
-        )}
-      </div>
-
+      ))}
     </div>
   )
 }
@@ -185,7 +182,7 @@ export default function WorkDetail() {
             {client.meta.map(({ label, value }) => (
               <div key={label}>
                 <div className="text-[9px] font-semibold tracking-[0.16em] uppercase text-dark/30 mb-1.5">{label}</div>
-                <div className="text-[13px] text-dark leading-[1.5]">{value}</div>
+                <div className="text-[13px] text-dark font-semibold leading-normal">{value}</div>
               </div>
             ))}
           </div>

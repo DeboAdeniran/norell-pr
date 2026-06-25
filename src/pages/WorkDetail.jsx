@@ -46,35 +46,32 @@ const clients = {
   },
 }
 
-function ImageGrid({ images, isLogo, name, onZoom, onMouseMove, onMouseLeave }) {
-  const wrapCls = 'rounded-[20px] overflow-hidden cursor-none'
-  const imgCls = 'w-full h-auto block transition-transform duration-500 hover:scale-[1.02]'
-
+function ImageGrid({ images, name, onZoom, onMouseMove, onMouseLeave }) {
   const handlers = (src) => ({ onClick: () => onZoom(src), onMouseMove, onMouseLeave })
 
-  // Chunk into pairs for 2-column rows
-  const pairs = []
-  for (let i = 0; i < images.length; i += 2) pairs.push(images.slice(i, i + 2))
-
   return (
-    <div className="flex flex-col gap-2.5">
-      {pairs.map((pair, row) => (
+    <div
+      style={{
+        columns: 2,
+        columnGap: '10px',
+      }}
+      className="max-md:columns-1"
+    >
+      {images.map((src, i) => (
         <div
-          key={row}
-          className={`grid gap-2.5 items-start ${pair.length === 2 ? 'grid-cols-2 max-md:grid-cols-1' : 'grid-cols-1'}`}
+          key={i}
+          style={{ breakInside: 'avoid', marginBottom: '10px' }}
+          className="rounded-[20px] overflow-hidden cursor-none"
+          {...handlers(src)}
         >
-          {pair.map((src, col) => (
-            <div key={col} className={wrapCls} {...handlers(src)}>
-              <img
-                src={src}
-                alt={name}
-                decoding="async"
-                fetchPriority={row === 0 && col === 0 ? 'high' : 'auto'}
-                loading={row === 0 ? 'eager' : 'lazy'}
-                className={imgCls}
-              />
-            </div>
-          ))}
+          <img
+            src={src}
+            alt={name}
+            decoding="async"
+            fetchPriority={i === 0 ? 'high' : 'auto'}
+            loading={i < 2 ? 'eager' : 'lazy'}
+            className="w-full h-auto block transition-transform duration-500 hover:scale-[1.02]"
+          />
         </div>
       ))}
     </div>
@@ -135,7 +132,6 @@ export default function WorkDetail() {
       {/* ── IMAGE GRID ── */}
       <ImageGrid
         images={client.images}
-        isLogo={client.isLogo}
         name={client.name}
         onZoom={setZoomed}
         onMouseMove={handleImgMouseMove}
@@ -181,8 +177,8 @@ export default function WorkDetail() {
           <div className="shrink-0 w-52 max-md:w-full flex flex-col gap-6 max-md:flex-row max-md:flex-wrap max-md:gap-x-10 max-md:gap-y-5 pt-1">
             {client.meta.map(({ label, value }) => (
               <div key={label}>
-                <div className="text-[9px] font-semibold tracking-[0.16em] uppercase text-dark/30 mb-1.5">{label}</div>
-                <div className="text-[13px] text-dark font-semibold leading-normal">{value}</div>
+                <div className="text-[9px] font-bold tracking-[0.16em] uppercase text-dark/50 mb-1.5">{label}</div>
+                <div className="text-[14px] text-dark font-bold leading-normal">{value}</div>
               </div>
             ))}
           </div>

@@ -80,8 +80,9 @@ export default function Home() {
       <motion.div className="section" variants={up} initial="hidden" whileInView="show" viewport={vp}>
         <div className="bg-wine rounded-[20px] py-[clamp(36px,5.5vh,64px)] px-[clamp(28px,4vw,60px)] grid grid-cols-2 gap-12 items-start relative overflow-hidden max-md:grid-cols-1 max-md:gap-6">
           <div>
-            <div className="mb-5">
-              <LogoFull variant="dark" height={16} opacity={0.5} />
+            <div className="flex items-center gap-2 mb-5">
+              <LogoMark variant="dark" size={14} opacity={0.6} />
+              <span className="font-syne text-[11px] font-bold text-cream/40 tracking-[0.1em] uppercase">Norell PR</span>
             </div>
             <div className="text-[10px] tracking-[0.14em] uppercase text-cream/45 mb-3">The Norell Approach</div>
             <div className="font-syne text-[clamp(18px,2.2vw,32px)] font-extrabold text-cream leading-[1.2] uppercase">

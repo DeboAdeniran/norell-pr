@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { heroContainer, heroItem, viewContainer, up, vp } from '../anim'
+import LogoMark from '../components/LogoMark'
 
 const MotionLink = motion.create(Link)
 
@@ -43,7 +44,7 @@ export default function Work() {
     <div className="mt-30 max-md:mt-29 flex flex-col gap-2.5">
 
       {/* ── HEADER ── */}
-      <div className="bg-cream border border-dark/8 rounded-[20px] py-[clamp(32px,5vh,52px)] px-[clamp(28px,4vw,56px)] flex items-end justify-between overflow-hidden">
+      <div className="bg-cream border border-dark/8 rounded-[20px] py-[clamp(32px,5vh,52px)] px-[clamp(28px,4vw,56px)] flex items-end justify-between overflow-hidden relative">
         <motion.div
           className="font-syne font-extrabold uppercase leading-[0.88] tracking-[-0.03em]"
           variants={heroContainer}
@@ -54,7 +55,7 @@ export default function Work() {
           <motion.div variants={heroItem} className="text-[clamp(52px,9vw,136px)] text-wine">Work</motion.div>
         </motion.div>
         <motion.div
-          className="text-right max-md:hidden"
+          className="text-right max-md:hidden relative z-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -62,6 +63,7 @@ export default function Work() {
           <div className="font-syne text-[clamp(40px,6vw,96px)] font-extrabold text-dark/10 leading-none">02</div>
           <div className="text-[10px] text-dark/35 tracking-widest uppercase">Projects</div>
         </motion.div>
+        <LogoMark variant="light" size={180} opacity={0.06} className="absolute -bottom-8 -right-8 pointer-events-none max-md:hidden" />
       </div>
 
       {/* ── MAIN GRID ── */}
